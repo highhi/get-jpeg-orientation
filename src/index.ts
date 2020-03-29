@@ -66,12 +66,11 @@ export function getApp1Offset(view: DataView): number | undefined {
       APP1が見つかるまで探索する必要がある
     */
     const value = view.getUint16(offset, false)
+
     if (HEX_APP1 === value) return offset
-    if (HEX_APP1 !== value) {
-      const nextAPPnMarkerOffset = getNextAPPnOffset(view, offset)
-      offset = nextAPPnMarkerOffset
-    }
+    offset = getNextAPPnOffset(view, offset)
   }
+
   return undefined
 }
 
