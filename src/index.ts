@@ -28,8 +28,8 @@ export function getOrientation(buf: ArrayBuffer): number {
   const view = new DataView(buf)
   if (!isJpeg(view)) return ORIENTATION_UNKNOWN
   const app1Offset = getApp1Offset(view)
-  if (!app1Offset) return ORIENTATION_UNKNOWN
-  if (isValidEXIF(view, app1Offset) == null) return ORIENTATION_UNKNOWN
+  if (app1Offset == null) return ORIENTATION_UNKNOWN
+  if (!isValidEXIF(view, app1Offset)) return ORIENTATION_UNKNOWN
   const endian = isLittleEndian(view, app1Offset)
   return findOrientationValue(view, app1Offset, endian)
 }
